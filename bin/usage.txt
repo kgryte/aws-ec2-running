@@ -1,0 +1,12 @@
+
+Usage: aws-ec2-running [options]
+
+Options:
+
+  -h,    --help                Print this message.
+  -V,    --version             Print the package version.
+         --key [key]           AWS credentials key id.
+         --secret [secret]     AWS credentials secret.
+         --interval [ms]       Poll interval (in milliseconds).
+         --tag [key=value]     EC2 instance tag; e.g., 'beep=boop bop'.
+         --region [region]     AWS region. Default: 'us-east-1'.
