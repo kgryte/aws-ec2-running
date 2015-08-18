@@ -39,10 +39,37 @@ function onData( evt ) {
 
 The `constructor` accepts the following options:
 
+-	__region__: AWS region. Default: `'us-east-1'`.
+-	__tags__: `object array` specifying EC2 instance tags by which to filter running instances. Each `object` should consist of `key` and `value` properties, where `key` is the tag and `value` is the tag value.
+	``` javascript
+	var opts = {
+		'key': 'XXXXXXXXXXXXXXXXXX',
+		'secret': 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+		'tags': [
+			{
+				'key': 'app',
+				'value': 'amazing_app'
+			},
+			...
+		]
+	};
+
+	// Return only those running instances having the `app` tag with a value `amazing_app`...
+	var query = createQuery( opts );
+	query.on( 'data', onData );
+
+	function onData( evt ) {
+		console.log( evt.data );
+		// returns ['<id>','<id>',...]
+	}
+	```
+
 -	__interval__: positive `number` defining a poll [interval](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval) for repeatedly querying AWS. The interval should be in units of `milliseconds`. If an `interval` is __not__ provided, only a single query is made. Default: `300000` (5min).
 
 	``` javascript
 	var opts = {
+		'key': 'XXXXXXXXXXXXXXXXXX',
+		'secret': 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
 		'interval': 3600000 // 1hr
 	};
 
@@ -52,7 +79,7 @@ The `constructor` accepts the following options:
 
 	function onData( evt ) {
 		console.log( evt.data );
-		// returns [{...},{...},...]
+		// returns ['<id>','<id>',...]
 	}
 	```
 
@@ -315,6 +342,10 @@ Options:
 
 *	In addition to the command-line `key` and `secret` options, the `key` and `secret` options may also be specified by environment variables: `AWS_ACCESS_KEY` and `AWS_ACCESS_SECRET`. The command-line options __always__ take precedence.
 *	If the process receives a terminating [signal event](https://nodejs.org/api/process.html#process_signal_events) (e.g., `CTRL+C`) while polling AWS, the process will stop polling and wait for any pending requests to complete before exiting.
+*	Multiple `tags` are supported. Key-value pairs should be separated by an equal sign. Keys are assumed to be free of any `=` symbols.
+	``` bash
+	$ aws-ec2-running --key <key> --secret <secret> --tag 'beep=boop' --tag 'woot=be bop'
+	```
 
 
 ### Examples
