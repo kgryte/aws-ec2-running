@@ -283,6 +283,70 @@ $ node ./examples/index.js
 ```
 
 
+---
+## CLI
+
+### Installation
+
+To use the module as a general utility, install the module globally
+
+``` bash
+$ npm install -g aws-ec2-running
+```
+
+
+### Usage
+
+``` bash
+Usage: aws-ec2-running [options]
+
+Options:
+
+  -h,    --help                Print this message.
+  -V,    --version             Print the package version.
+         --key [key]           AWS credentials key id.
+         --secret [secret]     AWS credentials secret.
+         --interval [ms]       Poll interval (in milliseconds).
+         --tag [key=value]     EC2 instance tag; e.g., 'beep=boop bop'.
+         --region [region]     AWS region. Default: 'us-east-1'.
+```
+
+### Notes
+
+*	In addition to the command-line `key` and `secret` options, the `key` and `secret` options may also be specified by environment variables: `AWS_ACCESS_KEY` and `AWS_ACCESS_SECRET`. The command-line options __always__ take precedence.
+*	If the process receives a terminating [signal event](https://nodejs.org/api/process.html#process_signal_events) (e.g., `CTRL+C`) while polling AWS, the process will stop polling and wait for any pending requests to complete before exiting.
+
+
+### Examples
+
+Setting credentials using the command-line option:
+
+``` bash
+$ aws-ec2-running --key <key> --secret <secret>
+# => '[<id>,<id>,...]'
+```
+
+Setting credentials using environment variables:
+
+``` bash
+$ AWS_ACCESS_KEY=<key> AWS_ACCESS_SECRET=<secret> aws-ec2-running
+# => '[<id>,<id>,...]'
+```
+
+For local installations, modify the command to point to the local installation directory; e.g., 
+
+``` bash
+$ ./node_modules/.bin/aws-ec2-running --key <key> --secret <secret>
+```
+
+Or, if you have cloned this repository and run `npm install`, modify the command to point to the executable; e.g., 
+
+``` bash
+$ node ./bin/cli --key <key> --secret <secret>
+```
+
+
+---
 ## Tests
 
 ### Unit
