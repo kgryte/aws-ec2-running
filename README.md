@@ -45,7 +45,7 @@ var opts = {
 	'secret': 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'	
 };
 
-var query = createQuery( opts, onData );
+createQuery( opts, onData );
 
 function onData( error, data ) {
 	if ( error ) {
