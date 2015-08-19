@@ -18,7 +18,7 @@ $ npm install aws-ec2-running
 var createQuery = require( 'aws-ec2-running' );
 ```
 
-#### createQuery( opts )
+#### createQuery( opts[, clbk] )
 
 Creates a new `Query` instance for retrieving a list of `running` EC2 instances from [AWS](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#describeInstances-property).
 
@@ -33,6 +33,25 @@ query.on( 'data', onData );
 
 function onData( evt ) {
 	console.log( evt.data );
+	// returns ['<instance_id>','<instance_id>',...]
+}
+```
+
+A callback `function` may be provided which accepts two arguments: `error` and `data`. When a request is successful, `error` is `null`.
+
+``` javascript
+var opts = {
+	'key': 'XXXXXXXXXXXXXXXXXX',
+	'secret': 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'	
+};
+
+var query = createQuery( opts, onData );
+
+function onData( error, data ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( data );
 	// returns ['<instance_id>','<instance_id>',...]
 }
 ```
