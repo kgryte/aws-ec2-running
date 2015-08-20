@@ -359,7 +359,7 @@ Options:
 
 ### Notes
 
-*	In addition to the command-line `key` and `secret` options, the `key` and `secret` options may also be specified by environment variables: `AWS_ACCESS_KEY` and `AWS_ACCESS_SECRET`. The command-line options __always__ take precedence.
+*	In addition to the command-line `key` and `secret` options, the `key` and `secret` options may be specified via environment variables: `AWS_ACCESS_KEY` and `AWS_ACCESS_SECRET`. The command-line options __always__ take precedence.
 *	If the process receives a terminating [signal event](https://nodejs.org/api/process.html#process_signal_events) (e.g., `CTRL+C`) while polling AWS, the process will stop polling and wait for any pending requests to complete before exiting.
 *	Multiple `tags` are supported. Key-value pairs should be separated by an `=` symbol. Keys are assumed to be free of any `=` symbols.
 
